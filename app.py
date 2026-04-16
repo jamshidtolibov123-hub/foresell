@@ -37,7 +37,21 @@ def login_page():
     tab1, tab2 = st.tabs(["🔐 Kirish", "ℹ️ Ma'lumot"])
 
     # KIRISH
-    # RO'YXATDAN O'TISH
+    with tab1:
+        username = st.text_input("Login", key="login_user")
+        password = st.text_input("Parol", type="password", key="login_pass")
+
+        if st.button("Kirish", type="primary"):
+            user = check_user(username, password)
+            if user:
+                st.session_state.logged_in = True
+                st.session_state.user_id = user[0]
+                st.session_state.username = user[1]
+                st.session_state.business_name = user[2]
+                st.rerun()
+            else:
+                st.error("Login yoki parol xato!")
+
     with tab2:
         st.subheader("Yangi akkount yaratish")
 
