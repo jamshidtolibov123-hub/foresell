@@ -34,7 +34,7 @@ def login_page():
     st.title("📊 Foresell")
     st.subheader("Savdo tahlil tizimi")
 
-    tab1, tab2 = st.tabs(["🔐 Kirish", "📝 Ro'yxatdan o'tish"])
+    tab1, tab2 = st.tabs(["🔐 Kirish", "ℹ️ Ma'lumot"])
 
     # KIRISH
     with tab1:
@@ -54,24 +54,10 @@ def login_page():
 
     # RO'YXATDAN O'TISH
     with tab2:
-        new_username = st.text_input("Login yarating", key="reg_user")
-        new_password = st.text_input("Parol yarating", type="password", key="reg_pass")
-        new_password2 = st.text_input("Parolni tasdiqlang", type="password", key="reg_pass2")
-        business_name = st.text_input("Biznes nomi (do'kon nomi)", key="reg_business")
-
-        if st.button("Ro'yxatdan o'tish", type="primary"):
-            if not new_username or not new_password or not business_name:
-                st.error("Barcha maydonlarni to'ldiring!")
-            elif new_password != new_password2:
-                st.error("Parollar mos emas!")
-            elif len(new_password) < 4:
-                st.error("Parol kamida 4 ta belgi bo'lsin!")
-            else:
-                if add_user(new_username, new_password, business_name):
-                    st.success("Ro'yxatdan o'tdingiz! Endi 'Kirish' tabidan kiring.")
-                else:
-                    st.error("Bu login allaqachon band. Boshqa login tanlang.")
-
+        st.info("📞 Ro'yxatdan o'tish uchun admin bilan bog'laning.")
+        st.write("**Telegram:** @jamshvd")
+        st.write("**Telefon:** +998 94 402 03 15")
+        st.write("**Email: jamshidtolibov123@gmail.com** ")
 
 # DASHBOARD SAHIFASI
 def dashboard():
