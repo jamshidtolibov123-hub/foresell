@@ -37,20 +37,35 @@ def login_page():
     tab1, tab2 = st.tabs(["🔐 Kirish", "ℹ️ Ma'lumot"])
 
     # KIRISH
-    with tab1:
-        username = st.text_input("Login", key="login_user")
-        password = st.text_input("Parol", type="password", key="login_pass")
+    # RO'YXATDAN O'TISH
+    with tab2:
+        st.subheader("Yangi akkount yaratish")
 
-        if st.button("Kirish", type="primary"):
-            user = check_user(username, password)
-            if user:
-                st.session_state.logged_in = True
-                st.session_state.user_id = user[0]
-                st.session_state.username = user[1]
-                st.session_state.business_name = user[2]
-                st.rerun()
-            else:
-                st.error("Login yoki parol xato!")
+        # MAXFIY KOD
+        secret_code = st.text_input("Maxfiy kod", type="password", key="secret")
+
+        if secret_code == "FORESELL1PROJECT":
+            new_username = st.text_input("Login", key="new_user")
+            new_password = st.text_input("Parol", type="password", key="new_pass")
+            new_password2 = st.text_input("Parolni tasdiqlang", type="password", key="new_pass2")
+            business_name = st.text_input("Biznes nomi", key="business")
+
+            if st.button("Ro'yxatdan o'tish", type="primary"):
+                if not new_username or not new_password or not business_name:
+                    st.error("Barcha maydonlarni to'ldiring!")
+                elif new_password != new_password2:
+                    st.error("Parollar mos emas!")
+                elif len(new_password) < 4:
+                    st.error("Parol kamida 4 ta belgi bo'lsin!")
+                else:
+                    if add_user(new_username, new_password, business_name):
+                        st.success("Akkount yaratildi! Endi kirishingiz mumkin.")
+                    else:
+                        st.error("Bu login band!")
+        elif secret_code:
+            st.error("❌ Maxfiy kod noto'g'ri!")
+        else:
+            st.info("📞 Maxfiy kodni olish uchun admin bilan bog'laning.")
 
     # RO'YXATDAN O'TISH
     with tab2:
