@@ -103,14 +103,13 @@ def dashboard():
             st.session_state.logged_in = False
             st.rerun()
 
-    # Obuna holati
-    if subscription_end:
-        end_date = datetime.strptime(subscription_end, "%Y-%m-%d")
-        days_left = (end_date - datetime.now()).days
-        if days_left > 0:
-            st.info(f"📅 Obuna muddati: {subscription_end} gacha ({days_left} kun qoldi)")
-        else:
-            st.error("⚠️ Obuna muddati tugagan! Iltimos, obunani yangilang.")
+        # Obuna holati
+        if subscription_end:
+            if isinstance(subscription_end, str):
+                end_date = datetime.strptime(subscription_end, "%Y-%m-%d").date()
+            else:
+                end_date = subscription_end
+            days_left = (end_date - datetime.now().date()).days
 
     st.divider()
 
